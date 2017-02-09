@@ -5,6 +5,8 @@
   padding-bottom: 20px;
 }
 
+/*------------------------ NAVBAR ---------------------------*/
+
 .my_navbar {
   /*position: absolute;*/
   width: 100%;
@@ -22,7 +24,15 @@
   float: right;
 }
 
+/*------------------------ FORMS ---------------------------*/
+
 .form-control {
   width: 500px;
   margin: 0 auto;
+}
+
+/*------------------------ FLASH MESSAGES ---------------------------*/
+
+.flash {
+  color: red;
 }

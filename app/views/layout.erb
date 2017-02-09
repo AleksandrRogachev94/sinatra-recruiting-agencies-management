@@ -12,13 +12,14 @@
       <div class="my_navbar">
         <div class="left-bar">
           <a href="/" class="btn btn-default" role="button">Main Page</a>
+ 
         </div>
         <div class="right-bar">
           <% if logged_in? %>
-            <button type="button" class="btn btn-default">Log Out</button>
+            <a href="/logout" class="btn btn-default" role="button">Log Out</a>
           <% else %>
-            <a href="/agencies/login" class="btn btn-default" role="button">Log In (Agency)</a>
-            <a href="https://gootlge.com" class="btn btn-default" role="button">Log In (Recruiter)</a>
+            <a href="/agency/login" class="btn btn-default" role="button">Log In (Agency)</a>
+            <a href="/recruiter/login" class="btn btn-default" role="button">Log In (Recruiter)</a>
             <a href="https://gootlge.com" class="btn btn-default" role="button">Sign Up</a>
           <% end %>
         </div>

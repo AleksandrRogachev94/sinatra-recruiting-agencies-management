@@ -1,7 +1,7 @@
 require_relative '../config/environment'
 
-manpower = Agency.create(username: "Manpower", email: "manpower@gmail.com", password: "12345")
-kelly = Agency.create(username: "Kelly", email: "kelly@gmail.com", password: "13254")
+manpower = Agency.create(username: "Manpower", email: "manpower@gmail.com", password: "1234")
+kelly = Agency.create(username: "Kelly", email: "kelly@gmail.com", password: "12345")
 
 alex = Recruiter.create(username: "Alex", email: "alex@gmail.com", speciality: "it", password: "111")
 josh = Recruiter.create(username: "Josh", email: "josh@gmail.com", speciality: "it", password: "222")
