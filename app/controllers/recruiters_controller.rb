@@ -12,5 +12,24 @@ class RecruitersController < ApplicationController
     end
   end
 
-  get '/recruiters/:slug'
+  get '/recruiters/:slug' do
+    if logged_in?
+      @recr = Recruiter.find_by_slug(params[:slug])
+      if @recr
+        erb :'/recruiters/show'
+      else
+        erb :failure
+      end
+    else
+      redirect to '/'
+    end
+  end
+
+  get 'recruiters/new' do
+    if logged_in_agency?
+
+    else
+      erb :'denied'
+    end
+  end
 end
