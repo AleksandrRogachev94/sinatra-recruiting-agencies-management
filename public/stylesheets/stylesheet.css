@@ -1,9 +1,8 @@
-
-
 .container {
   margin-top: 20px;
   background-color: #CECEF6;
   text-align: center;
+  padding-bottom: 20px;
 }
 
 .my_navbar {
@@ -21,4 +20,9 @@
 
 .right-bar {
   float: right;
+}
+
+.form-control {
+  width: 500px;
+  margin: 0 auto;
 }
