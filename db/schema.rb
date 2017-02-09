@@ -13,14 +13,14 @@
 ActiveRecord::Schema.define(version: 20170209012916) do
 
   create_table "agencies", force: :cascade do |t|
-    t.string   "name",            null: false
+    t.string   "username",        null: false
     t.string   "email",           null: false
     t.string   "address"
     t.string   "password_digest", null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["email"], name: "index_agencies_on_email", unique: true
-    t.index ["name"], name: "index_agencies_on_name", unique: true
+    t.index ["username"], name: "index_agencies_on_username", unique: true
   end
 
   create_table "companies", force: :cascade do |t|
@@ -39,20 +39,22 @@ ActiveRecord::Schema.define(version: 20170209012916) do
   end
 
   create_table "recruiters", force: :cascade do |t|
-    t.string   "name",            null: false
+    t.string   "username",        null: false
     t.string   "email",           null: false
     t.string   "password_digest", null: false
     t.string   "phone"
+    t.string   "speciality",      null: false
     t.integer  "agency_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["email"], name: "index_recruiters_on_email", unique: true
-    t.index ["name"], name: "index_recruiters_on_name", unique: true
+    t.index ["username"], name: "index_recruiters_on_username", unique: true
   end
 
   create_table "vacancies", force: :cascade do |t|
     t.string   "title",       null: false
     t.text     "description", null: false
+    t.integer  "salary",      null: false
     t.integer  "company_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false

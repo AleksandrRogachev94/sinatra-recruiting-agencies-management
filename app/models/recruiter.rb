@@ -4,6 +4,7 @@ class Recruiter < ActiveRecord::Base
   has_many :recruiter_vacancies
   has_many :vacancies, through: :recruiter_vacancies
 
-  validates :name, presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
+  validates :speciality, presence: true  
 end
