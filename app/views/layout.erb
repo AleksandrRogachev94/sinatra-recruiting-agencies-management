@@ -3,9 +3,28 @@
   <head>
     <meta charset="utf-8">
     <title>Recruiting Agencies</title>
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css">
   </head>
   <body>
-    <%= yield %>
+    <div class="container">
+
+      <div class="my_navbar">
+        <div class="left-bar">
+          <button type="button" class="btn btn-default">Main Page</button>
+        </div>
+        <div class="right-bar">
+          <% if logged_in? %>
+            <button type="button" class="btn btn-default">Log Out</button>
+          <% else %>
+            <a href="/agency/login" class="btn btn-default" role="button">Log In (Agency)</a>
+            <a href="https://gootlge.com" class="btn btn-default" role="button">Log In (Recruiter)</a>
+            <a href="https://gootlge.com" class="btn btn-default" role="button">Sign Up</a>
+          <% end %>
+        </div>
+      </div>
+
+      <%= yield %>
+    </div>
   </body>
 </html>
