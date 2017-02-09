@@ -6,5 +6,13 @@ class Recruiter < ActiveRecord::Base
 
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
-  validates :speciality, presence: true  
+  validates :speciality, presence: true
+
+  def slug
+    self.username.strip.downcase.gsub(" ", "-")
+  end
+
+  def self.find_by_slug(slug)
+    self.all.find { |obj| obj.slug == slug }
+  end
 end

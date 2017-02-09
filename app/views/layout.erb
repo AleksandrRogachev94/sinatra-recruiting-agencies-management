@@ -14,12 +14,13 @@
           <div class="left-bar">
             <a href="/" class="btn btn-default" role="button">Main Page</a>
             <% if logged_in_agency? %>
-              <a href="/" class="btn btn-default" role="button">Recruiters</a>
+              <a href="/recruiters" class="btn btn-default" role="button">Recruiters</a>
               <a href="/" class="btn btn-default" role="button">Vacancies</a>
               <a href="/" class="btn btn-default" role="button">Companies</a>
             <% end %>
             <% if logged_in_recruiter? %>
               <a href="/" class="btn btn-default" role="button">Vacancies</a>
+              <a href="/recruiters" class="btn btn-default" role="button">Recruiters</a>
             <% end %>
           </div>
           <div class="right-bar">

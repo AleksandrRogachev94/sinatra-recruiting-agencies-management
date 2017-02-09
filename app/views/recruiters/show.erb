@@ -1,0 +1,22 @@
+<h1>Welcome to Recruiting Agencies Manager!</h1><br>
+
+<% if logged_in? %>
+  <h3>You are logged in as <b><%= current_user.username %> <%= current_user.class %></b>
+  <% if logged_in_recruiter? %>
+    from <%= current_user.agency.username %> Agency
+  <% end %>
+  </h3>
+
+  <h3>Your personal data:</h3>
+  <p><b>Email:</b> <%= current_user.email %></p>
+  <% if current_user.respond_to? :phone %>
+    <p><b>Phone Number:</b> <%= current_user.phone %></p>
+  <% end %>
+  <% if current_user.respond_to? :speciality %>
+    <p><b>Speciality:</b> <%= current_user.speciality %></p>
+  <% end %>
+  <% if current_user.respond_to? :address %>
+    <p><b>Address:</b> <%= current_user.address %></p>
+  <% end %>
+  <p><%= current_user.created_at.strftime("Registered on %d/%m/%Y")%></p>
+<% end %>

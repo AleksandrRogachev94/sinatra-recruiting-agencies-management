@@ -3,11 +3,11 @@ require_relative '../config/environment'
 manpower = Agency.create(username: "Manpower", email: "manpower@gmail.com", password: "1234")
 kelly = Agency.create(username: "Kelly", email: "kelly@gmail.com", password: "12345")
 
-alex = Recruiter.create(username: "Alex", email: "alex@gmail.com", speciality: "it", password: "111")
-josh = Recruiter.create(username: "Josh", email: "josh@gmail.com", speciality: "it", password: "222")
-ron = Recruiter.create(username: "Ron", email: "ron@gmail.com", speciality: "finance", password: "333")
-bob = Recruiter.create(username: "bob", email: "bob@gmail.com", speciality: "finance", password: "444")
-alice = Recruiter.create(username: "alice", email: "alice@gmail.com", speciality: "it", password: "555")
+alex = Recruiter.create(username: "Alex", email: "alex@gmail.com", speciality: "It", password: "111")
+josh = Recruiter.create(username: "Josh", email: "josh@gmail.com", speciality: "It", password: "222")
+ron = Recruiter.create(username: "Ron", email: "ron@gmail.com", speciality: "Finance", password: "333")
+bob = Recruiter.create(username: "Bob", email: "bob@gmail.com", speciality: "Finance", password: "444")
+alice = Recruiter.create(username: "Alice", email: "alice@gmail.com", speciality: "It", password: "555")
 
 vac1 = Vacancy.create(title: "Junior web developer", salary: 60000, description: "The Junior Software Developer is responsible for developing, modifying, and maintaining software applications")
 vac2 = Vacancy.create(title: "Web developer", salary: 80000, description: "This Full Stack Developer will be a central role in our engineering team")

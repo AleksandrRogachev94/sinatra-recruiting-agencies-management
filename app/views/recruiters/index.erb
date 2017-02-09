@@ -1,0 +1,22 @@
+<% if logged_in_agency? %>
+  <h1>All Your Recruiters</h1>
+<% end %>
+<% if logged_in_recruiter? %>
+  <h1>All Recrouters of your Agency: <b><%= current_user.agency.username %></h1>
+<% end %>
+<br><br>
+
+<table class="table table-hover">
+  <tr class="my-header-row">
+    <th class="my-table-header">Name</th>
+    <th class="my-table-header">Speciality</th>
+    <th class="my-table-header"></th>
+  </tr>
+  <% @recruiters.each do |recruiter| %>
+    <tr class="my-row">
+      <td><%= recruiter.username %></td>
+      <td><%= recruiter.speciality %></td>
+      <td><a href="/" class="btn btn-info" role="button">Details</a></td>
+    </tr>
+  <% end %>
+</table>
