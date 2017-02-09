@@ -12,24 +12,86 @@ class RecruitersController < ApplicationController
     end
   end
 
+  get '/recruiters/new' do
+    if logged_in_agency?
+      erb :'recruiters/signup'
+    else
+      erb :denied
+    end
+  end
+
+  post '/recruiters' do
+    if logged_in_agency?
+      recr = Recruiter.new(params[:recruiter])
+      recr.agency = current_user
+      if recr.save
+        flash[:succeed] = "Successfully registered new Recruiter"
+        redirect to '/recruiters'
+      else
+        flash[:signup_errors] = recr.errors.full_messages.join(", ")
+        redirect to '/recruiters/new'
+      end
+    else
+      erb :denied
+    end
+  end
+
   get '/recruiters/:slug' do
     if logged_in?
       @recr = Recruiter.find_by_slug(params[:slug])
       if @recr
         erb :'/recruiters/show'
       else
-        erb :failure
+        erb :cant_find
       end
     else
       redirect to '/'
     end
   end
 
-  get 'recruiters/new' do
+  get '/recruiters/:slug/edit' do
     if logged_in_agency?
-
+      @recr = Recruiter.find_by_slug(params[:slug])
+      if @recr
+        erb :'recruiters/edit'
+      else
+        erb :cant_find
+      end
     else
-      erb :'denied'
+      erb :denied
+    end
+  end
+
+  patch '/recruiters/:slug' do
+    if logged_in_agency?
+      recr = Recruiter.find_by_slug(params[:slug])
+      if recr
+        if recr.update(params[:recruiter])
+          flash[:succeed] = "Successfully edited Recruiter"
+          redirect to '/recruiters'
+        else
+          flash[:edit_errors] = recr.errors.full_messages.join(", ")
+          redirect to "/recruiters/#{params[:slug]}/edit"
+        end
+      else
+        erb :cant_find
+      end
+    else
+      erb :denied
+    end
+  end
+
+  delete '/recruiters/:slug' do
+    if logged_in_agency?
+      recr = Recruiter.find_by_slug(params[:slug])
+      if recr
+        recr.delete
+        redirect to '/recruiters'
+      else
+        erb :cant_find
+      end
+    else
+      erb :denied
     end
   end
 end

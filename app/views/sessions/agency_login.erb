@@ -1,7 +1,7 @@
 <h1>Type Agency Name and Password</h1>
 
 <% if flash.has?(:login_errors) %>
-  <p class="flash"><%= flash[:login_errors] %></p>
+  <p class="flash-error"><%= flash[:login_errors] %></p>
 <% end %>
 
 <form action="/sessions" method="post">

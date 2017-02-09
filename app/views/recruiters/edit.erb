@@ -1,0 +1,30 @@
+<h1>Edit Recruiter's Info</h1>
+
+<% if flash.has?(:edit_errors) %>
+  <p class="flash-error"><%= flash[:edit_errors] %></p>
+<% end %>
+
+<form action="/recruiters/<%= @recr.slug %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" class="form-control" name="recruiter[username]" id="name" value="<%= @recr.username %>">
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" class="form-control" name="recruiter[email]" id="email" value="<%= @recr.email %>">
+  </div>
+
+  <div class="form-group">
+    <label for="speciality">Speciality:</label>
+    <input type="text" class="form-control" name="recruiter[speciality]" id="speciality" value="<%= @recr.speciality %>">
+  </div>
+
+  <div class="form-group">
+    <label for="phone">Phone Number:</label>
+    <input type="text" class="form-control" name="recruiter[phone]" id="phone" value="<%= @recr.phone %>">
+  </div>
+
+  <button type="submit" class="btn btn-default">Edit</button>
+</form>

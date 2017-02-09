@@ -40,8 +40,12 @@ section {
 
 /*------------------------ FLASH MESSAGES ---------------------------*/
 
-.flash {
+.flash-error {
   color: red;
+}
+
+.flash-success {
+  color: green;
 }
 
 /*------------------------ FOOTER ---------------------------*/

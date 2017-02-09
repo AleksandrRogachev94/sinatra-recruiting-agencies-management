@@ -4,7 +4,11 @@
 <% if logged_in_recruiter? %>
   <h1>All Recrouters of your Agency: <b><%= current_user.agency.username %></h1>
 <% end %>
+
 <br><br>
+<% if flash.has?(:succeed) %>
+  <p class="flash-success"><%= flash[:succeed] %></p>
+<% end %>
 
 <table class="table table-hover">
   <tr class="my-header-row">
@@ -20,3 +24,7 @@
     </tr>
   <% end %>
 </table>
+
+<% if logged_in_agency? %>
+  <a href="/recruiters/new" class="btn btn-default" role="button">New Recruiter</a>
+<% end %>

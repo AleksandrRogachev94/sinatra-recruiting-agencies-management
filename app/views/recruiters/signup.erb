@@ -1,0 +1,34 @@
+<h1>Add New Recruiter</h1>
+
+<% if flash.has?(:signup_errors) %>
+  <p class="flash-error"><%= flash[:signup_errors] %></p>
+<% end %>
+
+<form action="/recruiters" method="post">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" class="form-control" name="recruiter[username]" id="name" placeholder="Name">
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" class="form-control" name="recruiter[email]" id="email" placeholder="Email">
+  </div>
+
+  <div class="form-group">
+    <label for="speciality">Speciality:</label>
+    <input type="text" class="form-control" name="recruiter[speciality]" id="speciality" placeholder="Speciality">
+  </div>
+
+  <div class="form-group">
+    <label for="phone">Phone Number:</label>
+    <input type="text" class="form-control" name="recruiter[phone]" id="phone" placeholder="Phone Number">
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input type="password" class="form-control" name="recruiter[password]" id="password" placeholder="Password">
+  </div>
+
+  <button type="submit" class="btn btn-default">Create</button>
+</form>
