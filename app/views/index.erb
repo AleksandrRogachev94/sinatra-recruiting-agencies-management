@@ -1,7 +1,11 @@
 <h1>Welcome to Recruiting Agencies Manager!</h1><br>
 
 <% if logged_in? %>
-  <h3>You are logged in as <b><%= current_user.username %> <%= current_user.class %></b></h3>
+  <h3>You are logged in as <b><%= current_user.username %> <%= current_user.class %></b>
+  <% if logged_in_recruiter? %>
+    from <%= current_user.agency.username %> Agency
+  <% end %>
+  </h3>
 
   <h3>Your personal data:</h3>
   <p><b>Email:</b> <%= current_user.email %></p>
