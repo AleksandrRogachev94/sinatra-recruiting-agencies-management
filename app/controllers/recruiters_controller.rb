@@ -8,7 +8,7 @@ class RecruitersController < ApplicationController
       @recruiters = current_user.agency.recruiters
       erb :'recruiters/index'
     else
-      redirect to '/'
+      erb :denied
     end
   end
 
@@ -51,7 +51,7 @@ class RecruitersController < ApplicationController
 
   get '/recruiters/:slug/edit' do
     if logged_in_agency?
-      @recr = Recruiter.find_by_slug(params[:slug])
+      @recr = current_user.recruiters.find_by_slug(params[:slug])
       if @recr
         erb :'recruiters/edit'
       else
@@ -64,7 +64,7 @@ class RecruitersController < ApplicationController
 
   patch '/recruiters/:slug' do
     if logged_in_agency?
-      recr = Recruiter.find_by_slug(params[:slug])
+      recr = current_user.recruiters.find_by_slug(params[:slug])
       if recr
         if recr.update(params[:recruiter])
           flash[:succeed] = "Successfully edited Recruiter"
@@ -83,7 +83,7 @@ class RecruitersController < ApplicationController
 
   delete '/recruiters/:slug' do
     if logged_in_agency?
-      recr = Recruiter.find_by_slug(params[:slug])
+      recr = current_user.recruiters.find_by_slug(params[:slug])
       if recr
         recr.delete
         redirect to '/recruiters'

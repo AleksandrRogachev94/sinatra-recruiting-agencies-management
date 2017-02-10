@@ -6,9 +6,12 @@
 <p><b>Phone Number:</b> <%= @recr.phone %></p>
 <p><b>Speciality:</b> <%= @recr.speciality %></p>
 <p><%= @recr.created_at.strftime("Registered on %d/%m/%Y")%></p>
-<a href="#" class="btn btn-info" role="button">Recruiter's Vacancies</a><br><br>
 
-<% if logged_in_agency? %>
+<% if (logged_in_recruiter? && current_user.agency.username == @recr.agency.username) || (logged_in_agency? && current_user.username == @recr.agency.username)%>
+  <a href="#" class="btn btn-info" role="button">Recruiter's Vacancies</a><br><br>
+<% end %>
+
+<% if logged_in_agency? && current_user.username == @recr.agency.username %>
   <a href="/recruiters/<%= @recr.slug %>/edit" class="btn btn-default">Edit Recruiter's Info</a>
 
   <form action="/recruiters/<%= @recr.slug %>" method="post">

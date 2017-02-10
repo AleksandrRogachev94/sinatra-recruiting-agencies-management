@@ -56,5 +56,4 @@ class ApplicationController < Sinatra::Base
       redirect to "/#{params[:user_type].downcase}/login"
     end
   end
-
 end
