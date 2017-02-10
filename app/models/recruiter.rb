@@ -3,6 +3,7 @@ class Recruiter < ActiveRecord::Base
   belongs_to :agency
   has_many :recruiter_vacancies
   has_many :vacancies, through: :recruiter_vacancies
+  has_many :requests
 
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true

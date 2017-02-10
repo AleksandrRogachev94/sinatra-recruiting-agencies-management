@@ -8,4 +8,5 @@ use Rack::MethodOverride
 use SessionsController
 use RecruitersController
 use VacanciesController
+use RequestsController
 run ApplicationController
