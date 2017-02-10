@@ -16,12 +16,12 @@
 
             <% if logged_in_agency? %>
               <a href="/recruiters" class="btn btn-default" role="button">Recruiters</a>
-              <a href="/" class="btn btn-default" role="button">Vacancies</a>
-              <a href="/" class="btn btn-default" role="button">Companies</a>
+              <a href="/vacancies" class="btn btn-default" role="button">Vacancies</a>
+              <a href="/" class="btn btn-default" role="button">Requests</a>
             <% end %>
 
             <% if logged_in_recruiter? %>
-              <a href="/" class="btn btn-default" role="button">Vacancies</a>
+              <a href="/vacancies" class="btn btn-default" role="button">Vacancies</a>
               <a href="/recruiters" class="btn btn-default" role="button">Recruiters</a>
             <% end %>
           </div>

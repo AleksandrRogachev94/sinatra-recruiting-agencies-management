@@ -1,0 +1,42 @@
+<% if @user.class.to_s == "Agency" %>
+  <h1>All Vacancies of your Recruiters</h1>
+<% end %>
+
+<% if @user.class.to_s == "Recruiter" %>
+  <% if logged_in_recruiter? %>
+    <h1>All your Vacancies</h1>
+  <% else %>
+    <h1>All Vacancies of <b><%= @user.username %></b> from <b><%= current_user.username %></b> Agency</h1>
+  <% end %>
+<% end %>
+
+<br><br>
+<% if flash.has?(:succeed) %>
+  <p class="flash-success"><%= flash[:succeed] %></p>
+<% end %>
+
+<table class="table table-hover">
+  <tr class="my-header-row">
+    <th class="my-table-header">Title</th>
+    <% if @user.class.to_s == "Agency" %>
+      <th class="my-table-header">Recruiter</th>
+    <% end %>
+    <th class="my-table-header">Company</th>
+    <th class="my-table-header"></th>
+  </tr>
+
+  <% @vacs.each do |vac| %>
+    <tr class="my-row">
+      <td><%= vac.title %></td>
+      <% if @user.class.to_s == "Agency" %>
+        <td><%= vac.recruiters.find {|rec| rec.agency.username == @user.username}.username %></td>
+      <% end %>
+      <td><%= vac.company %></td>
+      <td><a href="/vacancies/<%= vac.id %>" class="btn btn-info" role="button">Details</a></td>
+    </tr>
+  <% end %>
+</table>
+
+<% if @user.class.to_s == "Agency" %>
+  <a href="/vacancies/new" class="btn btn-default" role="button">New Vacancy</a>
+<% end %>
