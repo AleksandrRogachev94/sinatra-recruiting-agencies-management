@@ -1,5 +1,6 @@
 class RequestsController < ApplicationController
 
+  # Create
   post '/requests' do
     if logged_in_recruiter?
       request = Request.new(description: params[:description])
@@ -18,6 +19,7 @@ class RequestsController < ApplicationController
     end
   end
 
+  # Index
   get '/requests' do
     if logged_in_agency?
       @requests = current_user.requests.reverse
@@ -27,6 +29,7 @@ class RequestsController < ApplicationController
     end
   end
 
+  # Show
   get '/requests/:id' do
     if logged_in_agency?
       @req = current_user.requests.find_by(id: params[:id])
@@ -46,7 +49,7 @@ class RequestsController < ApplicationController
   delete '/requests/:id' do
     if logged_in_agency?
       req = current_user.requests.find_by(id: params[:id])
-      if req
+      if req && req.pending?
         req.vacancy.delete
         req.update(status: "confirmed")
         redirect to "/requests"
@@ -62,8 +65,7 @@ class RequestsController < ApplicationController
   patch '/requests/:id' do
     if logged_in_agency?
       req = current_user.requests.find_by(id: params[:id])
-      if req
-        puts "changing status..."
+      if req && req.pending?
         req.update(status: "declined")
         redirect to "/requests"
       else
