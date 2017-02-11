@@ -18,6 +18,8 @@
 <% if logged_in_agency? %>
   <% if @is_taken%>
     <a href="/vacancies/<%= @vac.id %>/edit" class="btn btn-default">Edit Vacancie's Info</a>
+  <% elsif current_user.recruiters.empty? %>
+    <p>You don't have any recruiters</p>
   <% else %>
     <a href="/vacancies/<%= @vac.id %>/add" class="btn btn-default">Add Vacancy</a>
   <% end %>

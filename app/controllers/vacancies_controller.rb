@@ -43,6 +43,7 @@ class VacanciesController < ApplicationController
   # New Vacancy
   get '/vacancies/new' do
     if logged_in_agency?
+      redirect '/recruiters' if current_user.recruiters.empty?
       @recruiters = current_user.recruiters
       erb :'vacancies/new'
     else
@@ -52,6 +53,7 @@ class VacanciesController < ApplicationController
 
   post '/vacancies' do
     if logged_in_agency?
+      redirect '/recruiters' if current_user.recruiters.empty?
       vac = Vacancy.new(params[:vacancy])
       if vac.save
         recr = current_user.recruiters.find_by(id: params[:recruiter_id])
@@ -107,6 +109,7 @@ class VacanciesController < ApplicationController
   # Add Vacancy
   get '/vacancies/:id/add' do
     if logged_in_agency?
+      redirect '/recruiters' if current_user.recruiters.empty?
       @vac = Vacancy.find_by(id: params[:id])
       if @vac
         redirect to "/vacancies/#{params[:id]}" if current_user.vacancies.include?(@vac)
@@ -122,6 +125,7 @@ class VacanciesController < ApplicationController
 
   patch '/vacancies/:id/add' do
     if logged_in_agency?
+      redirect '/recruiters' if current_user.recruiters.empty?
       vac = Vacancy.find_by(id: params[:id])
       if vac
         redirect to "/vacancies/#{params[:id]}" if current_user.vacancies.include?(@vac)
@@ -138,7 +142,7 @@ class VacanciesController < ApplicationController
   end
 
   # Show one vacancy. Different permissions for Agencies owners, foreign Agenices, and for Recruiters.
-  # Recruiter can make a request to delete, Agencies ownewrs can edit, foreign Agencies can add vacancy to collection.
+  # Recruiter can make a request to delete, assigned Agencies can edit, nonassigned Agencies can add vacancy to their collections.
   get '/vacancies/:id' do
     if logged_in?
       # Both Agency and Recruiter can call #vacancies.
