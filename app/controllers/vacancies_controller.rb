@@ -104,16 +104,24 @@ class VacanciesController < ApplicationController
     end
   end
 
-  # Show one vacancy. Different permissions for Agency and for Recruiters. Recruiter can make a request to delete, Agency can edit.
+  # Show one vacancy. Different permissions for Agencies owners, foreign Agenices, and for Recruiters.
+  # Recruiter can make a request to delete, Agencies ownewrs can edit, foreign Agencies can add vacancy to collection.
   get '/vacancies/:id' do
     if logged_in?
       # Both Agency and Recruiter can call #vacancies.
-      @vac = current_user.vacancies.find_by(id: params[:id])
+      if logged_in_agency?
+        @vac = Vacancy.find_by(id: params[:id])
+      elsif logged_in_recruiter?
+        @vac = current_user.vacancies.find_by(id: params[:id])
+      end
 
       if @vac
         if logged_in_agency?
-          @recruiter = @vac.recruiters.find { |rec| rec.agency.username == current_user.username }
-          @agency = current_user
+          if @vac.agencies.include?(current_user)
+            @is_taken = true
+            @recruiter = @vac.recruiters.find { |rec| rec.agency.username == current_user.username }
+            @agency = current_user
+          end
         elsif logged_in_recruiter?
           @agency = current_user.agency
           @recruiter = current_user

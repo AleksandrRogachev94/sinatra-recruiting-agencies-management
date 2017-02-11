@@ -1,15 +1,26 @@
-<h1>Vacancy: <%= @vac.title %></h1><br>
+<h1>Vacancy: <%= @vac.title %>
 
-<p><b>Agency:</b> <%= @agency.username %></p>
-<p><b>Recruiter:</b> <a href="/recruiters/<%= @recruiter.slug %>"><%= @recruiter.username %></p></a>
+<% if logged_in_agency? && @is_taken %>
+  <h2>(You took this Vacancy)</h2>
+<% end %>
+</h1><br>
+
+<% if logged_in_agency? && @is_taken %>
+  <p><b>Recruiter:</b> <a href="/recruiters/<%= @recruiter.slug %>"><%= @recruiter.username %></p></a>
+<% end %>
+
 <p><b>Description:</b> <pre><%= @vac.description %></pre></p>
 <p><b>Company:</b> <%= @vac.company %></p>
 <p><b>Company Phone Number:</b> <%= @vac.company_phone %></p>
 <p><b>Salary:</b> $<%= @vac.salary %></p>
 <p><%= @vac.created_at.strftime("Registered on %d/%m/%Y")%></p>
 
-<% if logged_in_agency?%>
-  <a href="/vacancies/<%= @vac.id %>/edit" class="btn btn-default">Edit Vacancie's Info</a>
+<% if logged_in_agency? %>
+  <% if @is_taken%>
+    <a href="/vacancies/<%= @vac.id %>/edit" class="btn btn-default">Edit Vacancie's Info</a>
+  <% else %>
+    <a href="/vacancies/<%= @vac.id %>/add" class="btn btn-default">Add Vacancy</a>
+  <% end %>
 <% end %>
 
 <% if logged_in_recruiter? %>
