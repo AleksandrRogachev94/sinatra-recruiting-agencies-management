@@ -1,0 +1,16 @@
+<h1>Add Vacancy #<%= @vac.id %> <%= @vac.title %></h1>
+<h1>Choose your Recruiter</h1>
+
+<form action="/vacancies/<%= @vac.id %>/add" method="post">
+  <input type="hidden" name="_method" value="patch">
+
+  <% @recruiters.each do |recruiter| %>
+    <div class="radio">
+      <label>
+        <input type="radio" name="recruiter_id" value="<%= recruiter.id %>" checked><%= recruiter.username %>
+      </label>
+    </div>
+  <% end %>
+
+  <button type="submit" class="btn btn-default">Add</button>
+</form>

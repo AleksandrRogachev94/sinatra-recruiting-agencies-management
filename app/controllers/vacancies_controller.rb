@@ -104,6 +104,39 @@ class VacanciesController < ApplicationController
     end
   end
 
+  # Add Vacancy
+  get '/vacancies/:id/add' do
+    if logged_in_agency?
+      @vac = Vacancy.find_by(id: params[:id])
+      if @vac
+        redirect to "/vacancies/#{params[:id]}" if current_user.vacancies.include?(@vac)
+        @recruiters = current_user.recruiters
+        erb :'vacancies/add'
+      else
+        erb :cant_find
+      end
+    else
+      erb :denied
+    end
+  end
+
+  patch '/vacancies/:id/add' do
+    if logged_in_agency?
+      vac = Vacancy.find_by(id: params[:id])
+      if vac
+        redirect to "/vacancies/#{params[:id]}" if current_user.vacancies.include?(@vac)
+        recr = current_user.recruiters.find_by(id: params[:recruiter_id])
+        vac.recruiters.concat(recr) # Fires update.
+        flash[:succeed] = "Successfully Added Vacancy"
+        redirect to '/vacancies'
+      else
+        erb :cant_find
+      end
+    else
+      erb :denied
+    end
+  end
+
   # Show one vacancy. Different permissions for Agencies owners, foreign Agenices, and for Recruiters.
   # Recruiter can make a request to delete, Agencies ownewrs can edit, foreign Agencies can add vacancy to collection.
   get '/vacancies/:id' do

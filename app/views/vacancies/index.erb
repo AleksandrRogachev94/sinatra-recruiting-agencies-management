@@ -3,14 +3,10 @@
   <a href="/vacancies/new" class="btn btn-default" role="button">New Vacancy</a>
 <% end %>
 
-<% if @is_all %>
-  <h1>All Vacancies from All Agencies</h1>
-<% end %>
-
 <% if @user.class.to_s == "Recruiter" %>
   <% if logged_in_recruiter? %>
     <h1>All your Vacancies</h1>
-  <% else %>
+  <% elsif logged_in_agency? %>
     <h1>All Vacancies of <b><%= @user.username %></b> from <b><%= current_user.username %></b> Agency</h1>
   <% end %>
 <% end %>
