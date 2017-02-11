@@ -1,7 +1,7 @@
 <h1>Vacancy: <%= @vac.title %></h1><br>
 
 <p><b>Agency:</b> <%= @agency.username %></p>
-<p><b>Recruiter:</b> <%= @recruiter.username %></p>
+<p><b>Recruiter:</b> <a href="/recruiters/<%= @recruiter.slug %>"><%= @recruiter.username %></p></a>
 <p><b>Description:</b> <pre><%= @vac.description %></pre></p>
 <p><b>Company:</b> <%= @vac.company %></p>
 <p><b>Company Phone Number:</b> <%= @vac.company_phone %></p>

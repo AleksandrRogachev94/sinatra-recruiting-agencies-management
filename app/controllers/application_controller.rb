@@ -55,5 +55,15 @@ class ApplicationController < Sinatra::Base
 
       redirect to "/#{params[:user_type].downcase}/login"
     end
+
+    # The problem is that we have many to many between Recruiters and Vacancies, but within one agency only one recruiter deals with certain vacancy.
+    def change_recruiter_within_one_agency(vac, new_recr)
+      raise StandartError, "Not permitted!" unless current_user.is_a? Agency
+      curr_recr = vac.recruiters.where(agency_id: current_user.id).first
+      if curr_recr.id != new_recr.id
+        vac.recruiters.delete(curr_recr) #delete current
+        vac.recruiters.concat(new_recr) #add new
+      end
+    end
   end
 end

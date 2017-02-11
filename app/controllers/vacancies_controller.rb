@@ -7,7 +7,7 @@ class VacanciesController < ApplicationController
   get '/vacancies' do
     if logged_in?
       # Both Agency and Recruiter can call #vacancies.
-      @vacs = current_user.vacancies
+      @vacs = current_user.vacancies.reverse
       @user = current_user
       erb :'vacancies/index'
     else
@@ -20,7 +20,7 @@ class VacanciesController < ApplicationController
     if logged_in_agency?
       @user = current_user.recruiters.find_by_slug(params[:recr_slug])
       if @user
-        @vacs = @user.vacancies
+        @vacs = @user.vacancies.reverse
         erb :'vacancies/index'
       else
         erb :cant_find
@@ -33,7 +33,25 @@ class VacanciesController < ApplicationController
   # New Vacancy
   get '/vacancies/new' do
     if logged_in_agency?
+      @recruiters = current_user.recruiters
       erb :'vacancies/new'
+    else
+      erb :denied
+    end
+  end
+
+  post '/vacancies' do
+    if logged_in_agency?
+      vac = Vacancy.new(params[:vacancy])
+      if vac.save
+        recr = current_user.recruiters.find_by(id: params[:recruiter_id])
+        vac.recruiters.concat(recr) # triggers saving
+        flash[:succeed] = "Successfully created new Vacancy"
+        redirect to '/vacancies'
+      else
+        flash[:vacancy_errors] = vac.errors.full_messages.join(", ")
+        redirect to '/vacancies/new'
+      end
     else
       erb :denied
     end
@@ -43,6 +61,34 @@ class VacanciesController < ApplicationController
   get '/vacancies/:id/edit' do
     if logged_in_agency?
       @vac = current_user.vacancies.find_by(id: params[:id])
+      if @vac
+        @recruiters = current_user.recruiters
+        @recr = @vac.recruiters.where(agency_id: current_user.id).first
+        erb :'vacancies/edit'
+      else
+        erb :cant_find
+      end
+    else
+      erb :denied
+    end
+  end
+
+  patch '/vacancies/:id' do
+    if logged_in_agency?
+      vac = current_user.vacancies.find_by(id: params[:id])
+      if vac
+        if vac.update(params[:vacancy])
+          recr = current_user.recruiters.find_by(id: params[:recruiter_id])
+          change_recruiter_within_one_agency(vac, recr)
+          flash[:succeed] = "Successfully Edited Vacancy"
+          redirect to '/vacancies'
+        else
+          flash[:vacancy_errors] = vac.errors.full_messages.join(", ")
+          redirect to "/vacancies/#{params[:id]}/edit"
+        end
+      else
+        erb :cant_find
+      end
     else
       erb :denied
     end

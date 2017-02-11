@@ -1,0 +1,44 @@
+<h1>Edit Vacancy</h1>
+
+<% if flash.has?(:vacancy_errors) %>
+  <p class="flash-error"><%= flash[:vacancy_errors] %></p>
+<% end %>
+
+<form action="/vacancies/<%= @vac.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+
+  <div class="form-group">
+    <label for="title">Title:</label>
+    <input type="text" class="form-control" name="vacancy[title]" id="title" value="<%= @vac.title %>">
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description:</label><br>
+    <textarea name="vacancy[description]" id="description" rows="6" cols="60"><%= @vac.description %></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="company">Company:</label>
+    <input type="text" class="form-control" name="vacancy[company]" id="company" value="<%= @vac.company %>">
+  </div>
+
+  <div class="form-group">
+    <label for="phone">Companie's Phone Number:</label>
+    <input type="text" class="form-control" name="vacancy[company_phone]" id="phone" value="<%= @vac.company_phone %>">
+  </div>
+
+  <div class="form-group">
+    <label for="salary">Salary:</label>
+    <input type="number" class="form-control" name="vacancy[salary]" id="salary" value="<%= @vac.salary %>">
+  </div>
+
+  <% @recruiters.each do |recruiter| %>
+    <div class="radio">
+      <label>
+        <input type="radio" name="recruiter_id" value="<%= recruiter.id %>" <%= 'checked' if @recr.id == recruiter.id%>><%= recruiter.username %>
+      </label>
+    </div>
+  <% end %>
+
+  <button type="submit" class="btn btn-default">Edit</button>
+</form>
