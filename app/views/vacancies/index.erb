@@ -1,5 +1,10 @@
 <% if @user.class.to_s == "Agency" %>
   <h1>All Vacancies of your Recruiters</h1>
+  <a href="/vacancies/new" class="btn btn-default" role="button">New Vacancy</a>
+<% end %>
+
+<% if @is_all %>
+  <h1>All Vacancies from All Agencies</h1>
 <% end %>
 
 <% if @user.class.to_s == "Recruiter" %>
@@ -36,7 +41,3 @@
     </tr>
   <% end %>
 </table>
-
-<% if @user.class.to_s == "Agency" %>
-  <a href="/vacancies/new" class="btn btn-default" role="button">New Vacancy</a>
-<% end %>

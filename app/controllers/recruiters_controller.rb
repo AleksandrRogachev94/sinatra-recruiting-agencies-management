@@ -1,11 +1,12 @@
 class RecruitersController < ApplicationController
 
+  # Index
   get '/recruiters' do
     if logged_in_agency?
-      @recruiters = current_user.recruiters
+      @recruiters = current_user.recruiters.reverse
       erb :'recruiters/index'
     elsif logged_in_recruiter?
-      @recruiters = current_user.agency.recruiters
+      @recruiters = current_user.agency.recruiters.reverse
       erb :'recruiters/index'
     else
       erb :denied

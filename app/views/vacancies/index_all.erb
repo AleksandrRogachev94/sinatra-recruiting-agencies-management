@@ -1,0 +1,26 @@
+
+<h1>All Vacancies of All Agencies</h1>
+
+<br><br>
+<% if flash.has?(:succeed) %>
+  <p class="flash-success"><%= flash[:succeed] %></p>
+<% end %>
+
+<table class="table table-hover">
+  <tr class="my-header-row">
+    <th class="my-table-header">Title</th>
+    <th class="my-table-header">Company</th>
+    <th class="my-table-header">Salary</th>
+
+    <th class="my-table-header"></th>
+  </tr>
+
+  <% @vacs.each do |vac| %>
+    <tr class="my-row">
+      <td><%= vac.title %></td>
+      <td><%= vac.company %></td>
+      <td><%= vac.salary %></td>
+      <td><a href="/vacancies/<%= vac.id %>" class="btn btn-info" role="button">Details</a></td>
+    </tr>
+  <% end %>
+</table>

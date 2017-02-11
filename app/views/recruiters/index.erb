@@ -5,6 +5,10 @@
   <h1>All Recrouters of your Agency: <b><%= current_user.agency.username %></h1>
 <% end %>
 
+<% if logged_in_agency? %>
+  <a href="/recruiters/new" class="btn btn-default" role="button">New Recruiter</a>
+<% end %>
+
 <br><br>
 <% if flash.has?(:succeed) %>
   <p class="flash-success"><%= flash[:succeed] %></p>
@@ -24,7 +28,3 @@
     </tr>
   <% end %>
 </table>
-
-<% if logged_in_agency? %>
-  <a href="/recruiters/new" class="btn btn-default" role="button">New Recruiter</a>
-<% end %>

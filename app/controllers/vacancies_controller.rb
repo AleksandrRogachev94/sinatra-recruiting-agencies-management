@@ -30,6 +30,16 @@ class VacanciesController < ApplicationController
     end
   end
 
+  # Vacancies of all agencies.
+  get '/vacancies/all' do
+    if logged_in_agency?
+      @vacs = Vacancy.all.reverse
+      erb :'vacancies/index_all'
+    else
+      erb :denied
+    end
+  end
+
   # New Vacancy
   get '/vacancies/new' do
     if logged_in_agency?
