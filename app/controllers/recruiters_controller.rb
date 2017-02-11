@@ -1,6 +1,6 @@
 class RecruitersController < ApplicationController
 
-  # Index
+  # Index.
   get '/recruiters' do
     if logged_in_agency?
       @recruiters = current_user.recruiters.reverse
@@ -13,6 +13,7 @@ class RecruitersController < ApplicationController
     end
   end
 
+  # Signup Recruiter.
   get '/recruiters/new' do
     if logged_in_agency?
       erb :'recruiters/signup'
@@ -37,6 +38,7 @@ class RecruitersController < ApplicationController
     end
   end
 
+  # Show
   get '/recruiters/:slug' do
     if logged_in?
       @recr = Recruiter.find_by_slug(params[:slug])
@@ -50,6 +52,8 @@ class RecruitersController < ApplicationController
     end
   end
 
+
+  # Edit
   get '/recruiters/:slug/edit' do
     if logged_in_agency?
       @recr = current_user.recruiters.find_by_slug(params[:slug])
@@ -82,6 +86,7 @@ class RecruitersController < ApplicationController
     end
   end
 
+  # Delete
   delete '/recruiters/:slug' do
     if logged_in_agency?
       recr = current_user.recruiters.find_by_slug(params[:slug])
