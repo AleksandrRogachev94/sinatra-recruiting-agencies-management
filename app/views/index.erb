@@ -3,7 +3,7 @@
 <% if logged_in? %>
   <h3>You are logged in as <b><%= current_user.username %> <%= current_user.class %></b>
   <% if logged_in_recruiter? %>
-    from <b><%= current_user.agency.username %></b> Agency
+    from <b><%= current_user.agency.username %> Agency</b>
   <% end %>
   </h3>
 

@@ -30,6 +30,24 @@ class VacanciesController < ApplicationController
     end
   end
 
+  # New Vacancy
+  get '/vacancies/new' do
+    if logged_in_agency?
+      erb :'vacancies/new'
+    else
+      erb :denied
+    end
+  end
+
+  # Edit Vacancy
+  get '/vacancies/:id/edit' do
+    if logged_in_agency?
+      @vac = current_user.vacancies.find_by(id: params[:id])
+    else
+      erb :denied
+    end
+  end
+
   # Show one vacancy. Different permissions for Agency and for Recruiters. Recruiter can make a request to delete, Agency can edit.
   get '/vacancies/:id' do
     if logged_in?
@@ -54,24 +72,6 @@ class VacanciesController < ApplicationController
       else
         erb :cant_find
       end
-    else
-      erb :denied
-    end
-  end
-
-  # New Vacancy
-  get '/vacancies/new' do
-    if logged_in_agency?
-      erb :new
-    else
-      erb :denied
-    end
-  end
-
-  # Edit Vacancy
-  get '/vacancies/:id/edit' do
-    if logged_in_agency?
-      @vac = current_user.vacancies.find_by(id: params[:id])
     else
       erb :denied
     end
