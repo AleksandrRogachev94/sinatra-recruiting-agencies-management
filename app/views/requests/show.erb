@@ -1,0 +1,33 @@
+<h1>Request #<%= @req.id %></h1>
+<h2><b>Status: </b><%= @req.status %></h2><br>
+
+<h3>Information:</h3>
+<p><b>Vacancy:</b>
+  <% if @vacancy %>
+    <a href="/vacancies/<%= @vacancy.id %>"><%= @req.vacancy_title %></a>
+  <% else %>
+    <%= @req.vacancy_title %>
+  <% end %>
+</p>
+
+<p><b>Recruiter:</b>
+  <% if @recruiter %>
+    <a href="/recruiters/<%= @recruiter.slug %>"><%= @recruiter.username %></a>
+  <% else %>
+    <%= @recruiter.username %>
+  <% end %>
+</p>
+
+<p><b>Description:</b><br><pre><%= @req.description %></pre></p>
+<p><%= @req.created_at.strftime("Created on %d/%m/%Y")%></p>
+<p><%= @req.updated_at.strftime("Updated on %d/%m/%Y")%></p>
+
+<form action="/requests/<%= @req.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit" class="btn btn-default">Confirm</button>
+</form>
+
+<form action="/requests/<%= @req.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <button type="submit" class="btn btn-default">Decline</button>
+</form>

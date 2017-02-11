@@ -1,0 +1,19 @@
+<h1>All Requests to close Vacancies from your Recruiters</h1>
+<br><br>
+
+<table class="table table-hover">
+  <tr class="my-header-row">
+    <th class="my-table-header">Number</th>
+    <th class="my-table-header">Title</th>
+    <th class="my-table-header">Status</th>
+    <th class="my-table-header"></th>
+  </tr>
+  <% @requests.each do |request| %>
+    <tr class="my-row">
+      <td>#<%= request.id %></td>
+      <td><%= request.vacancy_title %></td>
+      <td><%= request.status %></td>
+      <td><a href="/requests/<%= request.id %>" class="btn btn-info" role="button">Details</a></td>
+    </tr>
+  <% end %>
+</table>

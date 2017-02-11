@@ -13,9 +13,13 @@
 <% end %>
 
 <% if logged_in_recruiter? %>
-  <form action="/requests" method="post">
-    <textarea name="request_description" rows="8" cols="80" placeholder="Description of Request"></textarea>
-    <input type="hidden" name="vacancy_id" value="<%= @vac.id %>">
-    <button type="submit" class="btn btn-default">Send Request to Close Vacancy</button>
-  </form>
+  <% if !@request_sent %>
+    <form action="/requests" method="post">
+      <textarea name="description" rows="6" cols="60" placeholder="Description of Request"></textarea><br>
+      <input type="hidden" name="vacancy_id" value="<%= @vac.id %>">
+      <button type="submit" class="btn btn-default">Send Request to Close Vacancy</button>
+    </form>
+  <% else %>
+    <h3 class="sent">Request to close Vacancy Sent to your Agency!<h3>
+  <% end %>
 <% end %>

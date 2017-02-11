@@ -15,7 +15,7 @@ class VacanciesController < ApplicationController
     end
   end
 
-  # Vacancies of the requested from the agency user.
+  # Vacancies of the requested from the agency user. For button "Recruiter's Vacancies"
   get '/:recr_slug/vacancies' do
     if logged_in_agency?
       @user = current_user.recruiters.find_by_slug(params[:recr_slug])
@@ -30,6 +30,7 @@ class VacanciesController < ApplicationController
     end
   end
 
+  # Show one vacancy. Different permissions for Agency and for Recruiters. Recruiter can make a request to delete, Agency can edit.
   get '/vacancies/:id' do
     if logged_in?
       # Both Agency and Recruiter can call #vacancies.
@@ -42,6 +43,12 @@ class VacanciesController < ApplicationController
         elsif logged_in_recruiter?
           @agency = current_user.agency
           @recruiter = current_user
+
+          @request_sent = false
+          req = Request.all.where(vacancy_id: @vac.id)
+          if !req.empty?
+            @request_sent = true if req.last.status == "pending"
+          end
         end
         erb :'vacancies/show'
       else
@@ -52,4 +59,21 @@ class VacanciesController < ApplicationController
     end
   end
 
+  # New Vacancy
+  get '/vacancies/new' do
+    if logged_in_agency?
+      erb :new
+    else
+      erb :denied
+    end
+  end
+
+  # Edit Vacancy
+  get '/vacancies/:id/edit' do
+    if logged_in_agency?
+      @vac = current_user.vacancies.find_by(id: params[:id])
+    else
+      erb :denied
+    end
+  end
 end
