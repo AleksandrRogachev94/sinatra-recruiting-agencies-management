@@ -22,6 +22,10 @@ If you don't want to use default database, delete it (db/agencies_db.sqlite) and
 
     $ rake db:migrate
 
+If you want to instantly try it, you can use fake data from db/seeds.rb (you can see all necessary data including password in this file). Execute:
+
+    $ rake db:seed
+
 To start the server execute:
 
     $ rackup
