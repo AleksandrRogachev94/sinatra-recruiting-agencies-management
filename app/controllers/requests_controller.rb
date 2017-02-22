@@ -45,7 +45,7 @@ class RequestsController < ApplicationController
     end
   end
 
-  # Comfirm
+  # Comfirm (deletes request)
   delete '/requests/:id' do
     if logged_in_agency?
       req = current_user.requests.find_by(id: params[:id])

@@ -1,11 +1,6 @@
-<h1>Vacancy: <%= @vac.title %>
-
+<h1>Vacancy: <%= @vac.title %></h1>
 <% if logged_in_agency? && @is_taken %>
-  <h2>(You took this Vacancy)</h2>
-<% end %>
-</h1><br>
-
-<% if logged_in_agency? && @is_taken %>
+  <h2>(You took this Vacancy)</h2><br>
   <p><b>Recruiter:</b> <a href="/recruiters/<%= @recruiter.slug %>"><%= @recruiter.username %></p></a>
 <% end %>
 
@@ -33,6 +28,6 @@
       <button type="submit" class="btn btn-default">Send Request to Close Vacancy</button>
     </form>
   <% else %>
-    <h3 class="sent">Request to close Vacancy Sent to your Agency!<h3>
+    <h3 class="sent">Request to close Vacancy is Sent to your Agency!<h3>
   <% end %>
 <% end %>

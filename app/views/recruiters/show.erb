@@ -7,11 +7,8 @@
 <p><b>Speciality:</b> <%= @recr.speciality %></p>
 <p><%= @recr.created_at.strftime("Registered on %d/%m/%Y")%></p>
 
-<% if logged_in_agency? && current_user.username == @recr.agency.username%>
-  <a href="/<%= @recr.slug %>/vacancies" class="btn btn-info" role="button">Recruiter's Vacancies</a><br><br>
-<% end %>
-
 <% if logged_in_agency? && current_user.username == @recr.agency.username %>
+  <a href="/<%= @recr.slug %>/vacancies" class="btn btn-info" role="button">Recruiter's Vacancies</a><br><br>
   <a href="/recruiters/<%= @recr.slug %>/edit" class="btn btn-default">Edit Recruiter's Info</a>
 
   <form action="/recruiters/<%= @recr.slug %>" method="post">

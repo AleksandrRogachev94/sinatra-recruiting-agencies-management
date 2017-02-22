@@ -8,4 +8,5 @@ class Vacancy < ActiveRecord::Base
   validates :company, presence: true
   validates :description, presence: true
   validates :salary, presence: true
+  validates :company_phone, length: { is: 10 }
 end

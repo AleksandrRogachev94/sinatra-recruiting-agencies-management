@@ -8,6 +8,7 @@ class Recruiter < ActiveRecord::Base
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
   validates :speciality, presence: true
+  validates :phone, length: { is: 10 }
 
   def slug
     self.username.strip.downcase.gsub(" ", "-")

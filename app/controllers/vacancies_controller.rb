@@ -91,6 +91,7 @@ class VacanciesController < ApplicationController
       if vac
         if vac.update(params[:vacancy])
           recr = current_user.recruiters.find_by(id: params[:recruiter_id])
+          #Many to many has restriction here: one vacancy can have only one recruiter within one agency.
           change_recruiter_within_one_agency(vac, recr)
           flash[:succeed] = "Successfully Edited Vacancy"
           redirect to '/vacancies'
@@ -112,6 +113,7 @@ class VacanciesController < ApplicationController
       redirect '/recruiters' if current_user.recruiters.empty?
       @vac = Vacancy.find_by(id: params[:id])
       if @vac
+        #If it is already added.
         redirect to "/vacancies/#{params[:id]}" if current_user.vacancies.include?(@vac)
         @recruiters = current_user.recruiters
         erb :'vacancies/add'
@@ -128,6 +130,7 @@ class VacanciesController < ApplicationController
       redirect '/recruiters' if current_user.recruiters.empty?
       vac = Vacancy.find_by(id: params[:id])
       if vac
+        #If it is already added.
         redirect to "/vacancies/#{params[:id]}" if current_user.vacancies.include?(@vac)
         recr = current_user.recruiters.find_by(id: params[:recruiter_id])
         vac.recruiters.concat(recr) # Fires update.
@@ -163,10 +166,11 @@ class VacanciesController < ApplicationController
           @agency = current_user.agency
           @recruiter = current_user
 
+          # Finding and checking last requst associated with this vacancy.
           @request_sent = false
           req = Request.all.where(vacancy_id: @vac.id)
           if !req.empty?
-            @request_sent = true if req.last.status == "pending"
+            @request_sent = true if req.last.pending?
           end
         end
         erb :'vacancies/show'
