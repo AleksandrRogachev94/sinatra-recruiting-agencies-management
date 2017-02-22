@@ -4,6 +4,5 @@ class Agency < ActiveRecord::Base
   has_many :vacancies, through: :recruiters
   has_many :requests, through: :recruiters
 
-  validates :username, presence: true, uniqueness: true
-  validates :email, presence: true, uniqueness: true
+  validates :username, :email, presence: true, uniqueness: true
 end

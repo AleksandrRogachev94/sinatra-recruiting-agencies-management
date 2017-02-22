@@ -18,9 +18,9 @@ class VacanciesController < ApplicationController
   # Vacancies of the requested from the agency user. For button "Recruiter's Vacancies"
   get '/:recr_slug/vacancies' do
     if logged_in_agency?
-      @user = current_user.recruiters.find_by_slug(params[:recr_slug])
-      if @user
-        @vacs = @user.vacancies.reverse
+      @recruiter = current_user.recruiters.find_by_slug(params[:recr_slug])
+      if @recruiter
+        @vacs = @recruiter.vacancies.reverse
         erb :'vacancies/index'
       else
         erb :cant_find
@@ -170,7 +170,7 @@ class VacanciesController < ApplicationController
           @request_sent = false
           req = Request.all.where(vacancy_id: @vac.id)
           if !req.empty?
-            @request_sent = true if req.last.pending?
+            @request_sent = true if req.last.status == 'pending'
           end
         end
         erb :'vacancies/show'

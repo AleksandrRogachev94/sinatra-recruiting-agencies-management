@@ -8,7 +8,7 @@
 <p><b>Company:</b> <%= @vac.company %></p>
 <p><b>Company Phone Number:</b> <%= @vac.company_phone %></p>
 <p><b>Salary:</b> $<%= @vac.salary %></p>
-<p><%= @vac.created_at.strftime("Registered on %d/%m/%Y")%></p>
+<p><%= @vac.created_at.strftime("Registered on %m/%d/%Y")%></p>
 
 <% if logged_in_agency? %>
   <% if @is_taken%>

@@ -49,7 +49,7 @@ class RequestsController < ApplicationController
   delete '/requests/:id' do
     if logged_in_agency?
       req = current_user.requests.find_by(id: params[:id])
-      if req && req.pending?
+      if req && req.status == "pending"
         req.vacancy.delete
         req.update(status: "confirmed")
         redirect to "/requests"
@@ -65,7 +65,7 @@ class RequestsController < ApplicationController
   patch '/requests/:id' do
     if logged_in_agency?
       req = current_user.requests.find_by(id: params[:id])
-      if req && req.pending?
+      if req && req.status == "pending"
         req.update(status: "declined")
         redirect to "/requests"
       else
