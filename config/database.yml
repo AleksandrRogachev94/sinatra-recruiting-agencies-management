@@ -1,11 +1,3 @@
-production:
-  adapter: postgresql
-  database: agencies_production
-  pool: 5
-  host: localhost
-  username: <%= ENV['PG_USER'] %>
-  password: <%= ENV['PG_PASS'] %>
-
 development:
   adapter: postgresql
   database: agencies_development

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 source "https://rubygems.org"
+ruby '2.3.1'
 
 # gem "rails"
 gem 'sinatra'
@@ -9,8 +10,12 @@ gem 'rake'
 gem 'require_all'
 #gem 'sqlite3'
 gem 'pg'
-gem 'shotgun'
-gem 'pry'
 gem 'bcrypt'
-gem "tux"
 gem 'rack-flash3'
+gem 'thin'
+
+group :development do
+  gem "tux"
+  gem 'pry'
+  gem 'shotgun'
+end
