@@ -1,5 +1,10 @@
 require 'bundler/setup'
-Bundler.require(:default)
+
+if ENV["DATABASE_URL"]
+  Bundler.require(:default)
+else
+  Bundler.require(:default, :development)
+end
 
 # environment = ENV['RACK_ENV'] || "development"
 # dbconfig = ENV['DATABASE_URL'] || YAML.load(ERB.new(File.read('config/database.yml')).result)[environment]
