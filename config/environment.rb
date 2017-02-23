@@ -1,10 +1,10 @@
 require 'bundler/setup'
 Bundler.require(:default)
 
-ActiveRecord::Base.establish_connection(
-  :adapter => "sqlite3",
-  :database => "db/agencies_db.sqlite"
-)
+environment = ENV['RACK_ENV'] || "development"
+dbconfig = YAML.load(ERB.new(File.read('config/database.yml')).result)
+#puts dbconfig.inspect
+ActiveRecord::Base.establish_connection(dbconfig[environment])
 
 require 'rack-flash'
 require_all 'app'
