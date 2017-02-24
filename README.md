@@ -4,9 +4,9 @@ This Web Application was created to manage recruiting Agencies. Below the major 
 Each Agency has multiple recruiters and vacancies. Agency can create recruiters, so later each recruiter can log in (but they can't sign up).
 Each vacancy has many recruiters and each recruiter has many vacancies, but within one agency only one recruiter can deal with certain vacancy. Agencies share vacancies between each other. Each agency can create its own vacancy or choose from the shared list. Recruiter can make a request to his agency in order to close vacancy. Then agency can confirm this request and delete vacancy or decline the request.
 
-[https://recruiting-agencies-manager.herokuapp.com](Site on heroku)
+[Site on heroku](https://recruiting-agencies-manager.herokuapp.com)
 
-[http://aleksandr-rogachev-blog.com/2017/02/13/sinatra_recruiting_agencies_management/](Blog Post about this application)
+[Blog Post about this application](http://aleksandr-rogachev-blog.com/2017/02/13/sinatra_recruiting_agencies_management/)
 
 
 ![Alt text](/schema.png?raw=true "Schema")
