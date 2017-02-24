@@ -6,6 +6,8 @@ else
   Bundler.require(:default, :development)
 end
 
+# Establish connection to postgres db
+
 configure :development do
 	db_config = YAML.load(ERB.new(File.read('config/database.yml')).result)['development']
 	ActiveRecord::Base.establish_connection(db_config)
